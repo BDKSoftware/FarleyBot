@@ -1,6 +1,7 @@
 import os
 from logging.config import dictConfig
 from dotenv import load_dotenv
+import logging
 
 load_dotenv()
 
@@ -31,7 +32,7 @@ LOGGING_CONFIG = {
         },
         "file": {
             "level": "INFO",
-            "formatter": "standard",
+            "formatter": "verbose",
             "class": "logging.FileHandler",
             "filename": "logs/bot.log",
             "mode": "w",
@@ -45,9 +46,11 @@ LOGGING_CONFIG = {
             "propagate": False,
         },
         "discord": {
-            "handlers": ["console2, file"],
+            "handlers": ["console2", "file"],
             "level": "INFO",
             "propagate": False,
-        },
-    },
+        }
+    }
 }
+
+dictConfig(LOGGING_CONFIG)
