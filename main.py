@@ -17,21 +17,23 @@ def run():
     @bot.event
     async def on_ready():
         logger.info(f"User: {bot.user}, (ID: {bot.user.id})")
-        random_farley_message.start()
 
     @bot.command()
     async def ping(ctx):
         await ctx.send(f"Pong! {round(bot.latency * 1000)}ms")
+        return
 
     @bot.event
     async def on_member_join(member):
         logger.info(f"{member} has joined the server.")
         await responses.welcome(member, member.guild.system_channel)
+        return
 
     @bot.event
     async def on_member_remove(member):
         logger.info(f"{member} has left the server.")
         await responses.kick(member, member.guild.system_channel)
+        return
 
     @bot.event
     async def on_member_ban(member):
@@ -43,18 +45,20 @@ def run():
         if message.author == bot.user:
             return
 
+        if 480978208884391938 in [member.id for member in message.mentions]:
+            # Add heart emoji to message
+            await message.add_reaction("❤️")
+
         if 1161770952514863104 in [member.id for member in message.mentions]:
             await responses.send_message(message)
             logger.info(f"Message sent by {message.author}.")
+            return
 
-    # Send at a random interval between 3 to 6 hours
-    @tasks.loop(hours=random.randint(8, 12))
-    async def random_farley_message():
-        await responses.random_message(bot.get_channel(1161774559557595290))
-
-    @random_farley_message.before_loop
-    async def before_random_farley_message():
-        await bot.wait_until_ready()
+        else:
+            if (random.randint(0, 20) == 20):
+                await responses.random_message(message.channel)
+                await message.add_reaction("🐶")
+                return
 
     # This must be at the end or commands will not be registered with the bot
     bot.run(settings.DiscordToken, root_logger=True)

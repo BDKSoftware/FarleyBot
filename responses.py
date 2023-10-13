@@ -3,9 +3,6 @@ import random
 
 
 async def send_message(message: discord.Message):
-
-    print(message.content)
-
     if message.content.endswith(">"):
         await message.channel.send("BARK BARK BARK")
         await message.add_reaction("🐶")
@@ -51,10 +48,12 @@ async def kick(member, channel):
 
 
 async def random_message(channel: int):
-    randomMsgs = ["BARK", "WOOF", "GRRRRRRR"]
+    randomMsgs = ["BARK", "WOOF",
+                  "What if im not a good boy?", "Brad is the best"]
 
     # pick a number between 1 and 3 randomly
     randomInt = random.randint(0, 2)
 
     msg = randomMsgs[randomInt]
     await channel.send(msg)
+    return
