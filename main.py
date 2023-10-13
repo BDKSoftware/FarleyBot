@@ -2,7 +2,8 @@ import settings
 import discord
 import responses
 import random
-from discord.ext import commands, tasks
+import farleyCommands
+from discord.ext import commands
 
 logger = settings.logging.getLogger("bot")
 
@@ -14,14 +15,41 @@ def run():
 
     bot = commands.Bot(command_prefix="!", intents=intents)
 
-    @bot.event
-    async def on_ready():
-        logger.info(f"User: {bot.user}, (ID: {bot.user.id})")
-
+    # Commands
     @bot.command()
     async def ping(ctx):
         await ctx.send(f"Pong! {round(bot.latency * 1000)}ms")
         return
+
+    @bot.command()
+    async def speak(ctx):
+        await farleyCommands.speak(ctx)
+        return
+
+    @bot.command()
+    async def sit(ctx):
+        await farleyCommands.sit(ctx)
+        return
+
+    @bot.command()
+    async def fetch(ctx):
+        await farleyCommands.fetch(ctx)
+        return
+
+    @bot.command()
+    async def rollover(ctx):
+        await farleyCommands.rollover(ctx)
+        return
+
+    @bot.command()
+    async def walton(ctx):
+        await farleyCommands.walton(ctx)
+        return
+
+    # Events
+    @bot.event
+    async def on_ready():
+        logger.info(f"User: {bot.user}, (ID: {bot.user.id})")
 
     @bot.event
     async def on_member_join(member):
@@ -52,13 +80,14 @@ def run():
         if 1161770952514863104 in [member.id for member in message.mentions]:
             await responses.send_message(message)
             logger.info(f"Message sent by {message.author}.")
-            return
 
         else:
             if (random.randint(0, 20) == 20):
                 await responses.random_message(message.channel)
                 await message.add_reaction("🐶")
-                return
+
+        await bot.process_commands(message)
+        return
 
     # This must be at the end or commands will not be registered with the bot
     bot.run(settings.DiscordToken, root_logger=True)
