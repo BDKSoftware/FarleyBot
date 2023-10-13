@@ -1,4 +1,3 @@
-1. Growls When new user enters server
 2. Notifys users when someone enters voice channel
 3. Barks randomly 3 times a day 
 4. Barks at Matt when he joins voice chat
