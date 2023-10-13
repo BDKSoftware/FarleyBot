@@ -47,7 +47,8 @@ def run():
             await responses.send_message(message)
             logger.info(f"Message sent by {message.author}.")
 
-    @tasks.loop(hours=float(random.radnint(6, 10)))
+    # Send at a random interval between 3 to 6 hours
+    @tasks.loop(hours=random.randint(8, 12))
     async def random_farley_message():
         await responses.random_message(bot.get_channel(1161774559557595290))
 
