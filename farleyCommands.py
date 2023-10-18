@@ -26,3 +26,6 @@ async def walton(ctx):
     return
 
 
+async def brad(ctx):
+    await ctx.send("Really nice guy, love that guy")
+    return
