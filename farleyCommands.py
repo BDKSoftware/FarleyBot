@@ -1,5 +1,7 @@
 import random
 
+# Commands for Farley bot to use when users use the <!> charcter
+
 
 async def sit(ctx):
     await ctx.send("`* sits *`")
@@ -29,3 +31,17 @@ async def walton(ctx):
 async def brad(ctx):
     await ctx.send("Really nice guy, love that guy")
     return
+
+
+async def james(ctx):
+    await ctx.send("Really cool dood, love that dood")
+    return
+
+
+async def petes(ctx):
+    await ctx.send("About my height, bark bark")
+    return
+
+
+async def matt(ctx):
+    await ctx.send("He's a communist but he's alright I guess")
